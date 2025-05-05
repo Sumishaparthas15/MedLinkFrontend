@@ -1,0 +1,104 @@
+/* Styling for the calendar container */
+.react-datepicker__triangle {
+  display: none; /* Hides the triangle pointer on the calendar */
+}
+
+.react-datepicker__header {
+  background-color: #4CAF50;  /* Green background for the header */
+  color: white;  /* White text */
+  font-size: 16px;  /* Adjust font size */
+  text-align: center;  /* Center the header text */
+  padding: 10px 0;  /* Adjust padding */
+}
+
+.react-datepicker__month {
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.react-datepicker__day-name {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px;
+  background-color: #f4f4f4;
+}
+
+.react-datepicker__day {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.react-datepicker__day:hover {
+  background-color: #e0f7fa;  /* Light blue on hover */
+}
+
+/* Style for available days */
+.available-day {
+  background-color: #81c784;  /* Light green background for available days */
+  color: black;
+}
+
+/* Style for disabled days */
+.disabled-day {
+  background-color: #e0e0e0;  /* Gray background for disabled days */
+  color: gray;
+  pointer-events: none;  /* Disable click event */
+}
+
+/* Navigation buttons styling */
+.react-datepicker__navigation {
+  background-color: #4CAF50;  /* Green background for nav buttons */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.react-datepicker__navigation--previous {
+  margin-right: 10px;
+}
+
+.react-datepicker__navigation--next {
+  margin-left: 10px;
+}
+
+.react-datepicker__navigation:disabled {
+  background-color: #ddd;  /* Disable background color */
+  color: #bbb;  /* Disabled text color */
+  cursor: not-allowed;
+}
+
+/* Customize the month and year display */
+.react-datepicker__current-month {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Error styling */
+.errorText {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* General spacing for the calendar */
+.react-datepicker__month-container {
+  padding: 20px;
+}
+
+.react-datepicker__day--selected {
+  background-color: #007BFF;  /* Blue background for selected day */
+  color: white;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #007BFF;  /* Blue background for keyboard selected day */
+  color: white;
+}
