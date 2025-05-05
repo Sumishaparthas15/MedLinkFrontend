@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AdminPanel from './AdminPanel';
-
+import config from '../../config';
 const AdminPremium = () => {
     const [hospitals, setHospitals] = useState([]);
 
     useEffect(() => {
         const fetchHospitals = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/premium_hospitals/');
+                const response = await axios.get(`${config.API_BASE_URL}/api/premium_hospitals/`);
                 setHospitals(response.data);
             } catch (error) {
                 console.error('Error fetching hospitals:', error);

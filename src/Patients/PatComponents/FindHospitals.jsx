@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import MedNavbar from './MedNavbar';
 import Footer from './Footer';
+import config from '../../config';
+
 
 function FindHospitals() {
   const styles = {
@@ -60,7 +62,7 @@ function FindHospitals() {
 
   // Fetch hospitals when the component mounts
   useEffect(() => {
-    fetch('http://localhost:8080/api/UIHospitalListView/')  // Adjust URL for your API
+    fetch(`${config.API_BASE_URL}/api/UIHospitalListView/`)  // Adjust URL for your API
       .then((response) => response.json())
       .then((data) => setHospitals(data.hospitals || []))
       .catch((error) => console.error('Error fetching hospitals:', error));

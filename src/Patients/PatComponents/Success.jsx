@@ -4,6 +4,7 @@ import PatPanel from './PatPanel';
 import MedNavbar from './MedNavbar';
 import Footer from './Footer';
 
+
 function BookingSuccess() {
   const location = useLocation();
   const navigate = useNavigate();

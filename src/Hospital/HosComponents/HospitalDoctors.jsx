@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Avatar, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField, Typography, Box, RadioGroup, Radio, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add'; // Import AddIcon
 import Cookies from 'js-cookie'; // Import Cookies
-
+import config from '../../config';
 const getCsrfToken = () => Cookies.get('csrftoken'); // Adjust according to your CSRF token setup
 
 const HospitalDoctors = () => {
@@ -39,7 +39,7 @@ const HospitalDoctors = () => {
     const fetchDepartments = async () => {
       try {
         if (hospitalEmail) {
-          const response = await axios.get(`http://localhost:8080/api/hospitaldepartmentsHospital/${encodeURIComponent(hospitalEmail)}`);
+          const response = await axios.get(`${config.API_BASE_URL}/api/hospitaldepartmentsHospital/${encodeURIComponent(hospitalEmail)}`);
           setDepartments(response.data);
         } else {
           console.error('Hospital email is not found in local storage');
@@ -55,7 +55,7 @@ const HospitalDoctors = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/doctors/${encodeURIComponent(hospitalEmail)}/`);
+      const response = await axios.get(`${config.API_BASE_URL}/api/doctors/${encodeURIComponent(hospitalEmail)}/`);
       setDoctors(response.data);
     } catch (error) {
       console.error('Error fetching doctors:', error);
@@ -98,7 +98,7 @@ const HospitalDoctors = () => {
     try {
       let url;
       if (editMode) {
-        url = `http://localhost:8080/api/doctors/${selectedDoctor.id}/update/`;
+        url = `${config.API_BASE_URL}/api/doctors/${selectedDoctor.id}/update/`;
         await axios.put(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',  // Required for file uploads
@@ -107,7 +107,7 @@ const HospitalDoctors = () => {
         });
         toast.success('Doctor updated successfully!');
       } else {
-        url = `http://localhost:8080/api/doctors/${encodeURIComponent(hospitalEmail)}/add/`;
+        url = `${config.API_BASE_URL}/api/doctors/${encodeURIComponent(hospitalEmail)}/add/`;
         await axios.post(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -137,7 +137,7 @@ const HospitalDoctors = () => {
     setImage(null); // Reset image upload
     setExperience(doctor.experience);
     setOpTime(doctor.op_time);
-    setImagePreview(`http://localhost:8080${doctor.image}`);
+    setImagePreview(`${config.API_BASE_URL}${doctor.image}`);
   
     // Check if available_days is a string. If it's already an object, you don't need to parse it.
     const availableDaysData = typeof doctor.available_days === 'string'
@@ -152,7 +152,7 @@ const HospitalDoctors = () => {
   
   const handleDelete = async (doctorId) => {
     try {
-      const url = `http://localhost:8080/api/doctors/${doctorId}/delete/`;  // Use doctor ID in the URL
+      const url = `${config.API_BASE_URL}/api/doctors/${doctorId}/delete/`;  // Use doctor ID in the URL
       await axios.delete(url, {
         headers: {
           'X-CSRFToken': getCsrfToken(),
@@ -178,7 +178,7 @@ const HospitalDoctors = () => {
           <div style={styles.doctorCards}>
             {doctors.map((doctor) => (
               <div className="doctor-card" key={doctor.id} style={styles.doctorCard}>
-                <img src={`http://localhost:8080${doctor.image}`} alt={doctor.name} style={styles.image} />
+                <img src={`${config.API_BASE_URL}${doctor.image}`} alt={doctor.name} style={styles.image} />
                 <h5 className="doctor-name" style={styles.doctorName}>{doctor.name}</h5>
                 <button className="button2" style={styles.button2} onClick={() => handleEdit(doctor)}>Edit</button>
                 <button className="button2" style={styles.button2} onClick={() => handleDelete(doctor.id)}>Delete</button>

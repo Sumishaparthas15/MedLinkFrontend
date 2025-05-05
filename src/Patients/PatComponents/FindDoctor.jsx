@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import MedNavbar from './MedNavbar';
 import Footer from './Footer';
+import config from '../../config';
+
 
 function FindDoctor() {
   const styles = {
@@ -83,7 +85,7 @@ function FindDoctor() {
 
   // Fetch doctors when the component mounts
   useEffect(() => {
-    fetch('http://localhost:8080/api/doctors/')
+    fetch(`${config.API_BASE_URL}/api/doctors/`)
       .then((response) => response.json())
       .then((data) => setDoctors(data.doctors || []))
       .catch((error) => console.error('Error fetching doctors:', error));

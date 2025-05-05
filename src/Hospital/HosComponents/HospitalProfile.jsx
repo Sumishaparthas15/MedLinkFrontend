@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import HospitalPanel from './HospitalPanel';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
-
+import config from '../../config';
 const allowedFields = [
     'hospital_name',
     'email',
@@ -39,7 +39,7 @@ const HospitalProfile = () => {
 
             try {
                 const encodedEmail = encodeURIComponent(email);
-                const response = await axios.get(`http://localhost:8080/api/hospital_profile/${encodedEmail}/`);
+                const response = await axios.get(`${config.API_BASE_URL}/api/hospital_profile/${encodedEmail}/`);
                 if (response.status === 200) {
                     setHospitalData(response.data);
                 } else {
@@ -76,7 +76,7 @@ const HospitalProfile = () => {
 
             const encodedEmail = encodeURIComponent(email);
             const response = await axios.patch(
-                `http://localhost:8080/api/hospital_profile_update/${encodedEmail}/`,
+                `${config.API_BASE_URL}/api/hospital_profile_update/${encodedEmail}/`,
                 { [editingField]: editValue }
             );
 
@@ -137,7 +137,7 @@ const HospitalProfile = () => {
                                                 ) : (
                                                     <>
                                                         {key === 'photo' || key === 'owner_photo' ? (
-                                                            hospitalData[key] && <img src={`http://localhost:8080${hospitalData[key]}`} alt={key} style={styles.image} />
+                                                            hospitalData[key] && <img src={`${config.API_BASE_URL}${hospitalData[key]}`} alt={key} style={styles.image} />
                                                         ) : key === 'license_expiry_date' ? (
                                                             new Date(hospitalData[key]).toLocaleDateString()
                                                         ) : (

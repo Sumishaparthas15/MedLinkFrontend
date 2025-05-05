@@ -15,7 +15,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Navbar from '../Navbar/Navbar';
 import LoginOTP from './LoginOTP';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
-
+import config from '../../config';
 const theme = createTheme();
 
 function Copyright(props) {
@@ -40,7 +40,7 @@ const HosLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/hospital_login/', {
+      const response = await axios.post(`${config.API_BASE_URL}/api/hospital_login/`, {
         email: email,
         password: password,
       });
@@ -48,7 +48,7 @@ const HosLogin = () => {
       localStorage.setItem('hospitalEmail', email); // Store email in local storage
       setOtpSent(true);
 
-      await fetch('http://127.0.0.1:8080/api/generate-otp/', {
+      await fetch(`${config.API_BASE_URL}/api/generate-otp/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

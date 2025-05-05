@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import PatOTPVerification from './PatOTPVerification ';
 import MedNavbar from '../../Patients/PatComponents/MedNavbar';
 import Footer from '../../Patients/PatComponents/Footer';
-
+import config from '../../config';
 const theme = createTheme();
 
 const SignUp = () => {
@@ -81,7 +81,7 @@ const SignUp = () => {
 
     try {
       // Register user
-      const response = await fetch('http://localhost:8080/api/register/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/register/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

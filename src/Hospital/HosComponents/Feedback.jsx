@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HospitalPanel from './HospitalPanel';
-
+import config from '../../config';
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const Feedback = () => {
 
       try {
         // Update the fetch URL to include the hospitalEmail as a path parameter
-        const response = await fetch(`http://localhost:8080/api/feedback-detail/${email}/`);
+        const response = await fetch(`${config.API_BASE_URL}/api/feedback-detail/${email}/`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch feedback.');

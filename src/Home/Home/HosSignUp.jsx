@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import dr from '../../images/hos5.jpg';
 import OTPVerification from './OTPVerification';
 import '../Navbar/Navbar.css'
-
+import config from '../../config';
 const theme = createTheme();
 
 function Copyright(props) {
@@ -90,7 +90,7 @@ const HosSignUp = () => {
     formData.append('password', password);
 
     try {
-      const response = await fetch('http://127.0.0.1:8080/api/hossignup/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/hossignup/`, {
         method: 'POST',
         body: formData
       });
@@ -102,7 +102,7 @@ const HosSignUp = () => {
       } else {
         setOtpSent(true);
         localStorage.setItem('hospitalEmail', email); 
-        await fetch('http://127.0.0.1:8080/api/generate-otp1/', {
+        await fetch(`${config.API_BASE_URL}/api/generate-otp1/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../Home/Navbar/Navbar';
+import config from '../../config';
 
 const ResetPassword = () => {
     const [otp, setOtp] = useState('');
@@ -33,7 +34,7 @@ const ResetPassword = () => {
         }
 
         // Post the data to the backend
-        fetch('http://127.0.0.1:8080/api/reset-password/', {
+        fetch(`${config.API_BASE_URL}/api/reset-password/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import PatPanel from './PatPanel';
 import MedNavbar from './MedNavbar';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
+import config from '../../config';
 
 const PatientProfile = () => {
   const [userData, setUserData] = useState(null);
@@ -30,7 +31,7 @@ const PatientProfile = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:8080/api/Patientsprofile/', {
+        const response = await axios.get(`${config.API_BASE_URL}/api/Patientsprofile/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -71,7 +72,7 @@ const PatientProfile = () => {
 
     try {
       const response = await axios.patch(
-        'http://localhost:8080/api/Patientsprofile/',
+        `${config.API_BASE_URL}/api/Patientsprofile/`,
         formData,
         {
           headers: {
@@ -176,7 +177,7 @@ const PatientProfile = () => {
         {/* Left Side - Profile Image */}
         <div style={styles.leftSide}>
           <img
-            src={userData.profile_img ? `http://localhost:8080${userData.profile_img}` : 'default_profile.png'}
+            src={userData.profile_img ? `${config.API_BASE_URL}${userData.profile_img}` : 'default_profile.png'}
             alt="Profile"
             style={styles.profileImage}
           />

@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 import doctorImage from "../../images/explore.jpg"; 
 import { Height } from '@mui/icons-material';
+import config from '../../config'
 
 const UIDepartments = () => {
   const departments = [

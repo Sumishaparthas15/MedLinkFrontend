@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom'; 
 import HospitalPanel from './HospitalPanel';
-
+import config from '../../config';
 const HospitalPremium = () => {
     const [isSubscribed, setIsSubscribed] = useState(false); 
     const [loading, setLoading] = useState(true); 
@@ -13,7 +13,7 @@ const HospitalPremium = () => {
         const hospitalId = localStorage.getItem('hospital_id'); 
 
         if (hospitalId) {
-            axios.get(`http://localhost:8080/api/check-subscription-status/${hospitalId}`)
+            axios.get(`${config.API_BASE_URL}/api/check-subscription-status/${hospitalId}`)
                 .then(response => {
                     setIsSubscribed(response.data.isSubscribed); 
                 })
@@ -103,7 +103,7 @@ const HospitalPremium = () => {
     
         try {
             if (paymentMethod === 'razorpay') {
-                const response = await axios.post('http://localhost:8080/api/create-premium-order/', {
+                const response = await axios.post(`${config.API_BASE_URL}/api/create-premium-order/`, {
                     hospital_id: numericHospitalId, 
                     date: date,
                     payment_method: 'razorpay',
@@ -122,7 +122,7 @@ const HospitalPremium = () => {
                     order_id: data.order_id,
                     handler: async function (response) {
                         try {
-                            await axios.post('http://localhost:8080/api/razorpay-premium-success/', {
+                            await axios.post(`${config.API_BASE_URL}/api/razorpay-premium-success/`, {
                                 booking_id: data.booking_id,
                                 razorpay_payment_id: response.razorpay_payment_id,
                                 razorpay_order_id: response.razorpay_order_id,

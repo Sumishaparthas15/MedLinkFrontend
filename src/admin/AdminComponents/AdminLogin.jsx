@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import config from '../../config'
 const AdminLogin = () => {
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const AdminLogin = () => {
   const handlelogin =async(e) =>{
     e.preventDefault();
     try{
-      const response = await axios.post('http://localhost:8080/api/admin/',{
+      const response = await axios.post(`${config.API_BASE_URL}/api/admin/`,{
         username:email,
         password:password,
       });

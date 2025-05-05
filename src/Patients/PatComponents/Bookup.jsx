@@ -11,6 +11,8 @@ import ThrissurImage from '../../images/thrissure-trekking.avif';
 import ekmImage from '../../images/Ernakulam-Discover-The-Urbane-Face-Of-Kochi-Kerala.jpg';
 import KoziImage from '../../images/kozhikode-beach-2-20230509170339267388.webp';
 import Hospiatl from '../../images/hospital-icon-your-website-design-260nw-2284645525.webp';
+import config from '../../config'
+
 
 function Bookup() {
   const [form, setForm] = useState({
@@ -61,7 +63,7 @@ function Bookup() {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/token/refresh/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/token/refresh/`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refresh: refreshToken }),
@@ -108,7 +110,7 @@ function Bookup() {
 
   // Fetch districts on mount
   useEffect(() => {
-    fetchWithToken('http://localhost:8080/api/districts/')
+    fetchWithToken(`${config.API_BASE_URL}/api/districts/`)
       .then(response => response.json())
       .then(data => setDistricts(data.districts || []))
       .catch(error => console.error('Error fetching districts:', error));
@@ -117,7 +119,7 @@ function Bookup() {
   // Fetch hospitals when district changes
   useEffect(() => {
     if (form.district) {
-      fetchWithToken(`http://localhost:8080/api/hospitals/${form.district}/`)
+      fetchWithToken(`${config.API_BASE_URL}/api/hospitals/${form.district}/`)
         .then(response => response.json())
         .then(data => setHospitals(data.hospitals || []))
         .catch(error => console.error('Error fetching hospitals:', error));
@@ -129,7 +131,7 @@ function Bookup() {
   // Fetch departments when hospital changes
   useEffect(() => {
     if (form.hospital) {
-      fetchWithToken(`http://localhost:8080/api/hospitaldepartmentspatient/${form.hospital}/`)
+      fetchWithToken(`${config.API_BASE_URL}/api/hospitaldepartmentspatient/${form.hospital}/`)
         .then(response => response.json())
         .then(data => setDepartments(data || []))
         .catch(error => console.error('Error fetching departments:', error));
@@ -141,7 +143,7 @@ function Bookup() {
   // Fetch doctors when department changes
   useEffect(() => {
     if (form.department) {
-      fetchWithToken(`http://localhost:8080/api/hospitaldoctors/${form.department}/`)
+      fetchWithToken(`${config.API_BASE_URL}/api/hospitaldoctors/${form.department}/`)
         .then(response => response.json())
         .then(data => setDoctors(data || []))
         .catch(error => console.error('Error fetching doctors:', error));
@@ -153,7 +155,7 @@ function Bookup() {
   // Fetch available days when doctor changes
   useEffect(() => {
     if (form.doctor) {
-      fetchWithToken(`http://localhost:8080/api/doctoravailable/${form.doctor}/`)
+      fetchWithToken(`${config.API_BASE_URL}/api/doctoravailable/${form.doctor}/`)
         .then(response => response.json())
         .then(data => {
           const days = Object.keys(data).filter(day => data[day]);
@@ -287,7 +289,7 @@ const isToday = (date) => {
 
     try {
       if (paymentMethod === 'razorpay') {
-        const { data } = await axios.post('http://localhost:8080/api/create-razorpay-order/', {
+        const { data } = await axios.post(`${config.API_BASE_URL}/api/create-razorpay-order/`, {
           hospital_id: form.hospital,
           department_id: form.department,
           doctor_id: form.doctor,
@@ -303,7 +305,7 @@ const isToday = (date) => {
           description: "Appointment Booking Fee",
           order_id: data.order_id,
           handler: async function (response) {
-            await axios.post('http://localhost:8080/api/razorpay-payment-success/', {
+            await axios.post(`${config.API_BASE_URL}/api/razorpay-payment-success/`, {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
@@ -322,7 +324,7 @@ const isToday = (date) => {
         const rzp = new window.Razorpay(options);
         rzp.open();
       } else if (paymentMethod === 'wallet') {
-        const response = await axios.post('http://localhost:8080/api/wallet_payment/', {
+        const response = await axios.post(`${config.API_BASE_URL}/api/wallet_payment/`, {
           hospital_id: form.hospital,
           department_id: form.department,
           doctor_id: form.doctor,
@@ -706,7 +708,7 @@ const isToday = (date) => {
             onClick={() => handleDepartmentSelection(department.id)}
           >
             <img
-              src={`http://localhost:8080${department.image}`} // Correct URL interpolation
+              src={`${config.API_BASE_URL}${department.image}`} // Correct URL interpolation
               alt={department.name}
               style={styles.departmentImage}
             />
@@ -737,7 +739,7 @@ const isToday = (date) => {
             onClick={() => handleDoctorSelection(doctor.id)}
           >
             <img
-              src={`http://localhost:8080${doctor.image}`} 
+              src={`${config.API_BASE_URL}${doctor.image}`} 
               alt={doctor.name} 
               style={styles.departmentImage} 
             />

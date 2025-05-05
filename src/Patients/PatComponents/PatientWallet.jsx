@@ -3,6 +3,7 @@ import axios from 'axios';
 import PatPanel from './PatPanel';
 import toast, { Toaster } from 'react-hot-toast';
 import MedNavbar from './MedNavbar';
+import config from '../../config';
 
 const PatientWallet = () => {
   const [wallets, setWallets] = useState([]);
@@ -17,7 +18,7 @@ const PatientWallet = () => {
 
   const fetchPatientId = async (email) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/get_patient_id/?email=${email}`);
+      const response = await axios.get(`${config.API_BASE_URL}/api/get_patient_id/?email=${email}`);
       if (response.data.patient_id) {
         setPatientId(response.data.patient_id);
       } else {
@@ -38,7 +39,7 @@ const PatientWallet = () => {
 
   const fetchWallets = async (patientId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/patient_wallets/${patientId}/`);
+      const response = await axios.get(`${config.API_BASE_URL}/api/patient_wallets/${patientId}/`);
       setWallets(response.data);
     } catch (error) {
       console.error('Failed to fetch wallets', error);

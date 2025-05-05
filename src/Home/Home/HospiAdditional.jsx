@@ -15,7 +15,7 @@ import Navbar from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import dr from '../../images/hos6.jpg';
-
+import config from '../../config'
 const theme = createTheme();
 
 const HospiAdditional = () => {
@@ -66,7 +66,7 @@ const HospiAdditional = () => {
     });
   
     try {
-      const url = `http://localhost:8080/api/HospitalAdditional/${encodeURIComponent(hospitalEmail)}/`;
+      const url = `${config.API_BASE_URL}/api/HospitalAdditional/${encodeURIComponent(hospitalEmail)}/`;
       await axios.patch(url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

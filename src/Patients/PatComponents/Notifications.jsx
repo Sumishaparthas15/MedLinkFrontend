@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PatPanel from './PatPanel';
-
+import config from '../../config';
 const Notification = ({ type, message }) => {
   const getNotificationStyle = () => {
     switch (type) {
@@ -49,7 +49,7 @@ const Notifications = () => {
       const email = localStorage.getItem('patientEmail');
       if (email) {
         try {
-          const response = await fetch(`http://localhost:8080/api/get_patient_id/?email=${email}`);
+          const response = await fetch(`${config.API_BASE_URL}/api/get_patient_id/?email=${email}`);
           const data = await response.json();
           if (data.patient_id) {
             setPatientId(data.patient_id);
@@ -69,7 +69,7 @@ const Notifications = () => {
     if (patientId) {
       const fetchNotifications = async () => {
         try {
-          const response = await fetch(`http://localhost:8080/api/notifications/?patient_id=${patientId}`);
+          const response = await fetch(`${config.API_BASE_URL}/api/notifications/?patient_id=${patientId}`);
           const data = await response.json();
           setNotifications(data);
         } catch (error) {

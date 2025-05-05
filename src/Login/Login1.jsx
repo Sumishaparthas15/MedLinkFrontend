@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import MedNavbar from '../Patients/PatComponents/MedNavbar';
 import Footer from '../Patients/PatComponents/Footer';
-
+import config from '../../src/config'
 const theme = createTheme();
 
 function Copyright(props) {
@@ -75,7 +75,7 @@ const Login1 = () => {
       let response;
 
       if (role === 'patient') {
-        response = await axios.post('http://localhost:8080/api/patient_login/', { email, password });
+        response = await axios.post(`${config.API_BASE_URL}/api/patient_login/`, { email, password });
         const { access_token, refresh_token } = response.data;
         localStorage.setItem('access_token', access_token);
         localStorage.setItem('refresh_token', refresh_token);
@@ -84,7 +84,7 @@ const Login1 = () => {
         localStorage.setItem("refresh", JSON.stringify(refresh_token));
         navigate('/');
       } else if (role === 'hospital') {
-        response = await axios.post('http://localhost:8080/api/hospital_login/', { email, password });
+        response = await axios.post(`${config.API_BASE_URL}/api/hospital_login/`, { email, password });
         const token = response.data.access;
         const hospitalId = response.data.hospital_id;
         localStorage.setItem('token', token);
@@ -92,7 +92,7 @@ const Login1 = () => {
         localStorage.setItem('hospital_id', hospitalId); 
         navigate('/hospital_dashboard');
       } else if (role === 'admin') {
-        response = await axios.post('http://localhost:8080/api/admin_login/', { email, password });
+        response = await axios.post(`${config.API_BASE_URL}/api/admin_login/`, { email, password });
         localStorage.setItem('token', response.data.token);
         navigate('/overview');
       }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminPanel from './AdminPanel';
 import './css/HospitalRequests.css';
-
+import config from '../../config';
 const HospitalRequests = () => {
     const [hospitals, setHospitals] = useState([]);
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ const HospitalRequests = () => {
             return;
         }
     
-        axios.get('http://localhost:8080/api/hospital_requests/', {
+        axios.get(`${config.API_BASE_URL}/api/hospital_requests/`, {
             headers: {
                 Authorization: `Token ${adminToken}`
             }
@@ -30,7 +30,7 @@ const HospitalRequests = () => {
     
     const approveHospital = (id, email) => {
         const adminToken = localStorage.getItem('token');
-        axios.post(`http://localhost:8080/api/approve_hospital/${id}/`, { email }, {
+        axios.post(`${config.API_BASE_URL}/api/approve_hospital/${id}/`, { email }, {
             headers: {
                 Authorization: `Token ${adminToken}`
             }
@@ -45,7 +45,7 @@ const HospitalRequests = () => {
     
     const rejectHospital = (id, email) => {
         const adminToken = localStorage.getItem('token');
-        axios.post(`http://localhost:8080/api/reject_hospital/${id}/`, { email }, {
+        axios.post(`${config.API_BASE_URL}/api/reject_hospital/${id}/`, { email }, {
             headers: {
                 Authorization: `Token ${adminToken}`
             }

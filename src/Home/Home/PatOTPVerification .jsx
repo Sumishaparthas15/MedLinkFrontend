@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Box, Typography } from '@mui/material';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import config from '../../config';
 const PatOTPVerification  = ({ email, userType }) => {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const PatOTPVerification  = ({ email, userType }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:8080/api/verify-otp1/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/verify-otp1/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })

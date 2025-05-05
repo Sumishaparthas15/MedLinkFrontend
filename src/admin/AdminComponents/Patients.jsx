@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminPanel from './AdminPanel';
-
+import config from '../../config';
 const Patients = () => {
     const [patients, setPatients] = useState([]);
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Patients = () => {
                 return;
             }
     
-            const response = await axios.get('http://localhost:8080/api/get_patients/', {
+            const response = await axios.get(`${config.API_BASE_URL}/api/get_patients/`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -40,7 +40,7 @@ const Patients = () => {
     const toggleUserStatus = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:8080/api/toggle_user_status/${id}/`, {}, {
+            const response = await axios.post(`${config.API_BASE_URL}/api/toggle_user_status/${id}/`, {}, {
                 headers: {
                     Authorization: `Token ${token}`
                 }

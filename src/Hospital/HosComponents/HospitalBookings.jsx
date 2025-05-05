@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import HospitalPanel from './HospitalPanel';
-
+import config from '../../config';
 const HospitalBookings = () => {
   const [hospitalEmail, setHospitalEmail] = useState('');
   const [bookings, setBookings] = useState([]);
@@ -22,7 +22,7 @@ const HospitalBookings = () => {
 
   const fetchBookings = async (email, page, status) => {
     try {
-      const url = `http://localhost:8080/api/hospital_bookings/${encodeURIComponent(email)}/?page=${page}&limit=${itemsPerPage}&status=${status || ''}`;
+      const url = `${config.API_BASE_URL}/api/hospital_bookings/${encodeURIComponent(email)}/?page=${page}&limit=${itemsPerPage}&status=${status || ''}`;
       const response = await axios.get(url);
       setBookings(response.data.results || []);
       setTotalPages(response.data.count ? Math.ceil(response.data.count / itemsPerPage) : 1);
@@ -51,7 +51,7 @@ const HospitalBookings = () => {
           requestData.doctor_name = booking.doctor;  // Pass the doctor’s name
         }
 
-        const url = `http://localhost:8080/api/update_booking_status_hospital/${id}/`;
+        const url = `${config.API_BASE_URL}/api/update_booking_status_hospital/${id}/`;
         await axios.put(url, requestData);
 
         setBookings(bookings.map(booking =>

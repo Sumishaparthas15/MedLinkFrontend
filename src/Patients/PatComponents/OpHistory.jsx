@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import MedNavbar from './MedNavbar';
 import Footer from './Footer';
 import Notification from './Notifications';
+import config from '../../config';
 
 const OpHistory = () => {
   const [bookings, setBookings] = useState([]);
@@ -24,7 +25,7 @@ const refreshAccessToken = async () => {
   }
 
   try {
-      const response = await fetch('http://localhost:8080/api/token/refresh/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/token/refresh/`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -57,7 +58,7 @@ const refreshAccessToken = async () => {
     let token = getAccessToken();
 
     try {
-      let response = await fetch(`http://localhost:8080/api/bookings/`, {
+      let response = await fetch(`${config.API_BASE_URL}/api/bookings/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -68,7 +69,7 @@ const refreshAccessToken = async () => {
         navigate('/LOGIN',)
         token = await refreshAccessToken();
         if (!token) return; // If token refresh fails, stop here
-        response = await fetch(`http://localhost:8080/api/bookings/`, {
+        response = await fetch(`${config.API_BASE_URL}/api/bookings/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -96,7 +97,7 @@ const refreshAccessToken = async () => {
     let token = getAccessToken();
 
     try {
-      let response = await fetch(`http://localhost:8080/api/update_booking_status/${id}/`, {
+      let response = await fetch(`${config.API_BASE_URL}/api/update_booking_status/${id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ const refreshAccessToken = async () => {
       if (response.status === 401) {
         token = await refreshAccessToken();
         if (!token) return; // If token refresh fails, stop here
-        response = await fetch(`http://localhost:8080/api/update_booking_status/${id}/`, {
+        response = await fetch(`${config.API_BASE_URL}/api/update_booking_status/${id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -143,7 +144,7 @@ const refreshAccessToken = async () => {
     let token = getAccessToken();
 
     try {
-      let response = await fetch(`http://localhost:8080/api/get_booking_details/${bookingId}/`, {
+      let response = await fetch(`${config.API_BASE_URL}/api/get_booking_details/${bookingId}/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -153,7 +154,7 @@ const refreshAccessToken = async () => {
       if (response.status === 401) {
         token = await refreshAccessToken();
         if (!token) return; // If token refresh fails, stop here
-        response = await fetch(`http://localhost:8080/api/get_booking_details/${bookingId}/`, {
+        response = await fetch(`${config.API_BASE_URL}/api/get_booking_details/${bookingId}/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -193,7 +194,7 @@ const refreshAccessToken = async () => {
     };
 
     try {
-      let response = await fetch('http://localhost:8080/api/submit_feedback/', {
+      let response = await fetch(`${config.API_BASE_URL}/api/submit_feedback/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -206,7 +207,7 @@ const refreshAccessToken = async () => {
       if (response.status === 401) {
         token = await refreshAccessToken();
         if (!token) return; // If token refresh fails, stop here
-        response = await fetch('http://localhost:8080/api/submit_feedback/', {
+        response = await fetch(`${config.API_BASE_URL}/api/submit_feedback/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

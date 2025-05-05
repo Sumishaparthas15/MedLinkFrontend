@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AdminPanel from './AdminPanel';
-
+import config from '../../config';
 const BlockedPatHos = () => {
     const [blockedPatients, setBlockedPatients] = useState([]);
     const [blockedHospitals, setBlockedHospitals] = useState([]);
@@ -13,7 +13,7 @@ const BlockedPatHos = () => {
 
     const fetchBlockedPatients = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/get_blocked_patients/');
+            const response = await axios.get(`${config.API_BASE_URL}/api/get_blocked_patients/`);
             console.log("Blocked Patients Data:", response.data);
             setBlockedPatients(response.data);
         } catch (error) {
@@ -23,7 +23,7 @@ const BlockedPatHos = () => {
 
     const fetchBlockedHospitals = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/get_blocked_hospitals/');
+            const response = await axios.get(`${config.API_BASE_URL}/api/get_blocked_hospitals/`);
             console.log("Blocked Hospitals Data:", response.data);
             setBlockedHospitals(response.data);
         } catch (error) {
@@ -33,7 +33,7 @@ const BlockedPatHos = () => {
 
     const handleUnblock = async (userId) => {
         try {
-            await axios.post(`http://localhost:8080/api/toggle_user_status/${userId}/`);
+            await axios.post(`${config.API_BASE_URL}/api/toggle_user_status/${userId}/`);
             fetchBlockedPatients(); // Refresh the list
         } catch (error) {
             console.log("Error unblocking patient", error);

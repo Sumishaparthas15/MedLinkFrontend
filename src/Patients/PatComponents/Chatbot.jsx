@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import config from '../../config'
+
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +14,7 @@ const Chatbot = () => {
   setMessages([...messages, newMessage]);
 
   try {
-    const response = await axios.post("http://localhost:8080/api/chatbot-symptom-checker/", { message: input });
+    const response = await axios.post(`${config.API_BASE_URL}/api/chatbot-symptom-checker/`, { message: input });
     setMessages([...messages, newMessage, { role: "assistant", content: response.data.reply }]);
   } catch (error) {
     console.error("Error:", error.response?.data?.error || error.message);

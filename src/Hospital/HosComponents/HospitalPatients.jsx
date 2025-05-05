@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import HospitalPanel from './HospitalPanel';
-
+import config from '../../config';
 const HospitalPatients = () => {
   const [patients, setPatients] = useState([]);
   const [hospitalEmail, setHospitalEmail] = useState('');
@@ -22,7 +22,7 @@ const HospitalPatients = () => {
 
   const fetchPatients = async (email) => {
     try {
-      const url = `http://localhost:8080/api/completed_bookings/${encodeURIComponent(email)}/`;
+      const url = `${config.API_BASE_URL}/api/completed_bookings/${encodeURIComponent(email)}/`;
       const response = await axios.get(url);
       if (response.status === 200) {
         setPatients(response.data);

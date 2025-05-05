@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminPanel from './AdminPanel';
-
+import config from '../../config';
 const Hospital = () => {
     const [approvedHospitals, setApprovedHospitals] = useState([]);
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Hospital = () => {
                 return;
             }
     
-            const response = await axios.get('http://localhost:8080/api/HospitalListView/', {
+            const response = await axios.get(`${config.API_BASE_URL}/api/HospitalListView/`, {
                 headers: {
                     Authorization: `Token ${token}` // Ensure the correct token format
                 }
@@ -40,7 +40,7 @@ const Hospital = () => {
     const handleBlockUnblock = async (hospitalId, isApproved) => {
         try {
             const action = isApproved ? 'block' : 'unblock';
-            await axios.post(`http://localhost:8080/api/block_unblock_hospital/${hospitalId}/`, { action });
+            await axios.post(`${config.API_BASE_URL}/api/block_unblock_hospital/${hospitalId}/`, { action });
             fetchApprovedHospitals(); // Refresh the hospital list
         } catch (error) {
             console.error(`Error ${isApproved ? 'blocking' : 'unblocking'} hospital:`, error);

@@ -2,6 +2,7 @@ import React from 'react'
 import MedNavbar from './MedNavbar'
 import Footer from './Footer'
 
+
 const Security = () => {
   return (
     <div>

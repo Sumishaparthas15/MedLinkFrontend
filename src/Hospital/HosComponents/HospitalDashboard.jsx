@@ -4,7 +4,7 @@ import { Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, LineElement, PointElement } from 'chart.js';
 import HospitalPanel from './HospitalPanel';
 import Notification1 from './Notification1';
-
+import config from '../../config';
 // Register Chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, LineElement, PointElement);
 
@@ -36,7 +36,7 @@ const HospitalDashboard = () => {
         const trimmedEmail = email.trim();
 
         // Fetch data from the backend API
-        const response = await axios.get(`http://localhost:8080/api/dashboard/${trimmedEmail}/`);
+        const response = await axios.get(`${config.API_BASE_URL}/api/dashboard/${trimmedEmail}/`);
         setData(response.data);
       } catch (error) {
         console.error('Failed to fetch dashboard data', error);

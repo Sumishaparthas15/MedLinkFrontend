@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './css/HospitalRequests.css'; // Ensure this file exists and includes necessary styles
 import AdminPanel from './AdminPanel';
-
+import config from '../../config';
 const HospitalDetails = () => {
     const { id } = useParams();
     const [hospital, setHospital] = useState(null);
@@ -15,7 +15,7 @@ const HospitalDetails = () => {
             navigate('/admin'); 
         }
     
-        axios.get(`http://localhost:8080/api/hospital/${id}/`, {
+        axios.get(`${config.API_BASE_URL}/api/hospital/${id}/`, {
             headers: {
                 Authorization: `Token ${adminToken}`
             }
@@ -101,12 +101,12 @@ const HospitalDetails = () => {
                             <td colSpan="2">
                                 <div className="pdf-container">
                                     <iframe 
-                                        src={`http://localhost:8080${hospital.photo}`} 
+                                        src={`${config.API_BASE_URL}${hospital.photo}`} 
                                         title="Hospital Document"
                                         className="pdf-viewer"
                                         frameBorder="0"
                                     >
-                                        This browser does not support PDFs. Please download the PDF to view it: <a href={`http://localhost:8080${hospital.photo}`}>Download PDF</a>.
+                                        This browser does not support PDFs. Please download the PDF to view it: <a href={`${config.API_BASE_URL}${hospital.photo}`}>Download PDF</a>.
                                     </iframe>
                                 </div>
                             </td>

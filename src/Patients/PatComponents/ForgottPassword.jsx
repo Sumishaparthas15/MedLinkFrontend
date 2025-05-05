@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Home/Navbar/Navbar';
+import config from '../../config';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:8080/api/forgot-password/', {
+      const response = await fetch(`${config.API_BASE_URL}/api/forgot-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

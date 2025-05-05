@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { height } from '@mui/system';
-
+import config from '../../config';
 const HospitalDepartment = () => {
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
@@ -28,7 +28,7 @@ const HospitalDepartment = () => {
 
     const fetchDepartments = async (email) => {
         try {
-            const url = `http://localhost:8080/api/departments/${encodeURIComponent(email)}/`;
+            const url = `${config.API_BASE_URL}/api/departments/${encodeURIComponent(email)}/`;
             const response = await axios.get(url);
             setDepartments(response.data);
         } catch (error) {
@@ -67,7 +67,7 @@ const HospitalDepartment = () => {
         try {
             let url;
             if (editMode) {
-                url = `http://localhost:8080/api/departments/${encodeURIComponent(hospitalEmail)}/${selectedDepartment.id}/update/`;
+                url = `${config.API_BASE_URL}/api/departments/${encodeURIComponent(hospitalEmail)}/${selectedDepartment.id}/update/`;
                 await axios.put(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -75,7 +75,7 @@ const HospitalDepartment = () => {
                 });
                 toast.success('Department updated successfully!');
             } else {
-                url = `http://localhost:8080/api/departments/${encodeURIComponent(hospitalEmail)}/create/`;
+                url = `${config.API_BASE_URL}/api/departments/${encodeURIComponent(hospitalEmail)}/create/`;
                 await axios.post(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -93,7 +93,7 @@ const HospitalDepartment = () => {
 
     const handleDelete = async (departmentId) => {
         try {
-            const url = `http://localhost:8080/api/departments/${encodeURIComponent(hospitalEmail)}/${departmentId}/delete/`;
+            const url = `${config.API_BASE_URL}/api/departments/${encodeURIComponent(hospitalEmail)}/${departmentId}/delete/`;
             await axios.delete(url);
             toast.success('Department deleted successfully!');
             fetchDepartments(hospitalEmail);
@@ -125,7 +125,7 @@ const HospitalDepartment = () => {
                 <div className="department-cards" style={styles.departmentCards}>
                     {departments.map(department => (
                         <div className="department-card" key={department.id} style={styles.departmentCard}>
-                            <img src={`http://localhost:8080${department.image}`} alt={department.name} style={styles.image} />
+                            <img src={`${config.API_BASE_URL}${department.image}`} alt={department.name} style={styles.image} />
                             <h5 className="department-name" style={styles.departmentName}>{department.name}</h5>
                             {/* <button className="button2" style={styles.button2} onClick={() => handleEdit(department)}>Edit</button> */}
                             <button className="button2" style={styles.button2} onClick={() => handleDelete(department.id)}>Delete</button>

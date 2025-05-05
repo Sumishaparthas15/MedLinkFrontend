@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaWallet } from 'react-icons/fa';
 
+
 const MedNavbar = () => {
   const [email, setEmail] = useState(null);
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, LineElement } from 'chart.js';
-
+import config from '../../config';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,7 +22,7 @@ const OverView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/dashboard-data/');
+        const response = await axios.get(`${config.API_BASE_URL}/api/dashboard-data/`);
         setData(response.data);
         setLoading(false);
       } catch (error) {

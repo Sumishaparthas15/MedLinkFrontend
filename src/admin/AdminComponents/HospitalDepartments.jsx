@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './css/HospitalRequests.css'
-
+import config from '../../config';
 import AdminPanel from './AdminPanel';
 
 const HospitalDepartments = () => {
@@ -12,7 +12,7 @@ const HospitalDepartments = () => {
     useEffect(() => {
         const fetchDepartments = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/hospitaldepartments1/${id}/`);
+                const response = await axios.get(`${config.API_BASE_URL}/api/hospitaldepartments1/${id}/`);
                 setDepartments(response.data);
             } catch (error) {
                 console.error('Error fetching departments:', error);
@@ -31,7 +31,7 @@ const HospitalDepartments = () => {
             <div className="departments-container">
                 {departments.map(department => (
                     <div key={department.id} className="department-card">
-                        <img src={`http://localhost:8080${department.image}`} alt={department.name} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                        <img src={`${config.API_BASE_URL}${department.image}`} alt={department.name} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                         <h4>{department.name}</h4>
                     </div>
                 ))}
