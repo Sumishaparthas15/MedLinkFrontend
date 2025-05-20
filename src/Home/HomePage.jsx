@@ -15,8 +15,9 @@ import Footer from '../Patients/PatComponents/Footer'
 const HomePage = () => {
   return (
     <div>
-        <MedNavbar/>
+         <MedNavbar/>
         <Home />
+       
         <ServicesGrid />
         <UIDepartments />
         <Footer />
